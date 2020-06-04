@@ -1,0 +1,22 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t gbelinelo/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run gbelinelo/react-test npm test -- --coverage
+
+after_success:
+    - docker build -t gbelinelo/multi-client ./client
+    - docker build -t gbelinelo/multi-nginx ./nginx
+    - docker build -t gbelinelo/multi-server ./server
+    - docker build -t gbelinelo/multi-worker ./worker
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take those images and push them to docker hub
+    - docker push gbelinelo/multi-client
+    - docker push gbelinelo/multi-nginx
+    - docker push gbelinelo/multi-server
+    - docker push gbelinelo/multi-worker
