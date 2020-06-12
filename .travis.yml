@@ -20,3 +20,16 @@ after_success:
     - docker push gbelinelo/multi-nginx
     - docker push gbelinelo/multi-server
     - docker push gbelinelo/multi-worker
+
+deploy:
+    edge: true
+    provider: elasticbeanstalk
+    region: sa-east-1
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-sa-east-1-934285670803
+    bucket_path: docker-multi
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
