@@ -21,7 +21,7 @@
             "hostname": "worker",
             "essential": false,
             "memory": 128
-        }, 
+        },  
         {
             "name": "nginx",
             "image": "ggglopes/multi-nginx",
