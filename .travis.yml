@@ -22,7 +22,6 @@ after_success:
     - docker push gbelinelo/multi-worker
 
 deploy:
-    edge: true
     provider: elasticbeanstalk
     region: sa-east-1
     app: multi-docker
